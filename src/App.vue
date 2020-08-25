@@ -53,7 +53,7 @@
                 </v-card>
             </v-list>
         </v-container>
-    </v-navigation-drawer>
+    </v-navigation-drawer>    
     <v-footer
         app
         tile
@@ -74,6 +74,8 @@
         </v-card>
     </v-footer>
     <v-main>
+        <goboard>
+        </goboard>
         <v-layout
             fill-height
             column
@@ -99,16 +101,19 @@
 </template>
 
 <script>
+import goboard from './goboard'
 import axios from 'axios'
 String.prototype.replaceAt = function (index, replacement) {
     return this.substr(0, index) + replacement + this.substr(index + replacement.length)
 }
 export default {
     name: 'App',
+    components:{goboard},
     data() {
         return {
             userNames: ['acrossonbouwers', 'DanTheMan'],
             userNameEntry: '',
+            goStatus: [],
             chats: [{
                     user: 'Aric',
                     message: 'Ok this is something, you happy?'
