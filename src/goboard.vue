@@ -1,9 +1,9 @@
 <template>
 <div>
     <h1> Go Board </h1>
-    <div v-if="loaded">
-        <v-row v-for="n in 19" :key="n" class="d-flex">
-            <input v-for="k in 19" :key="k" type="button" :style="'width:3%;background-color:'+color[n][k]" @click="changeStatus(n,k)" />
+    <div>
+        <v-row v-for="(row, x) in board.points" :key="x" class="d-flex">
+            <input v-for="(point, y) in row" :key="y" type="button" :style="'width:3%;background-color:'+point.render()" @click="point.playStone(newStone())" />
 
         </v-row>
     </div>
@@ -11,23 +11,29 @@
 </template>
 
 <script>
+import Board from './classes/Board'
+import Stone from './classes/Stone'
+
 export default {
     data() {
         return {
-            color: [[]],
-            loaded: false
+            board: new Board(9)
         }
     },
     methods: {
         changeStatus(x, y) {
             if (this.color[x][y] == 'black') {
-                this.color[x].splice(y, 1, 'white')
+                this.color[x].splice(y, 1, 'white') // instead of-> this.color[x][y] = 'white'
             } else {
-                this.color[x].splice(y,1, 'black')
+                this.color[x].splice(y, 1, 'black')
             }
+        },
+        newStone(){
+            return new Stone('black')
         }
     },
     computed: {
+    
 
     },
     mounted() {
@@ -39,6 +45,10 @@ export default {
         }
         console.log(this.color)
         this.loaded = true
+
+        let board = new Board(3)
+
     }
+
 }
 </script>
