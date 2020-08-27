@@ -14,16 +14,16 @@
 export default {
     data() {
         return {
-            color: [],
+            color: [[]],
             loaded: false
         }
     },
     methods: {
         changeStatus(x, y) {
             if (this.color[x][y] == 'black') {
-                this.color[x][y] = 'white'
+                this.color[x].splice(y, 1, 'white')
             } else {
-                this.color[x][y] = 'black'
+                this.color[x].splice(y,1, 'black')
             }
         }
     },
@@ -31,15 +31,12 @@ export default {
 
     },
     mounted() {
-        let colorState = []
         for (let i = 0; i < 19; i++) {
-            colorState.push([])
+            this.color.push([])
             for (let k = 0; k < 19; k++) {
-                colorState[i].push('black')
-
+                this.color[i].push('black')
             }
         }
-        this.color = colorState
         console.log(this.color)
         this.loaded = true
     }
