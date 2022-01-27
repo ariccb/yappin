@@ -101,7 +101,7 @@
 </template>
 
 <script>
-import goboard from './goboard'
+import goboard from './components/goboard.vue'
 import axios from 'axios'
 String.prototype.replaceAt = function (index, replacement) {
     return this.substr(0, index) + replacement + this.substr(index + replacement.length)
@@ -148,10 +148,19 @@ export default {
         },
         newUserName() {
             this.userNames.unshift(this.userNameEntry)
+        },
+        updateChats(){
+            chats = axios.get('http://localhost:3000/chat').then((res) => {
+                this.chats = (res.data)
+                console.log(this.chats)
+                setTimeout(this.updateChats, 500)
+            })
         }
         //   addUser() {
         //       this.username.push(this)
         //   }
+
+
     },
     computed: {
         censorchats() {
